@@ -38,13 +38,13 @@ class PrepareDatasetForLearning:
         for i in range(0, len(dataset.index)):
             # If we have exactly one true class column, we can assign that value,
             # otherwise we keep the default class.
-            if sum_values[i] == 1:
+            if sum_values[i] < 3 :
                 dataset.iloc[i, dataset.columns.get_loc(self.class_col)] = dataset[labels].iloc[i].idxmax(axis=1)
         # And remove our old binary columns.
         dataset = dataset.drop(labels, axis=1)
         return dataset
 
-    # Split a dataset of a single person for a classificaiton problem with the the specified class columns class_labels.
+    # Split a dataset of a single person for a classificiton problem with the the specified class columns class_labels.
     # We can have multiple targets if we want. It assumes a list in 'class_labels'
     # If 'like' is specified in matching, we will merge the columns that contain the class_labels into a single
     # columns. We can select a filter for rows where we are unable to identifty a unique
@@ -63,7 +63,7 @@ class PrepareDatasetForLearning:
         # Filer NaN is desired and those for which we cannot determine the class should be removed.
         if filter:
             dataset = dataset.dropna()
-            dataset = dataset[dataset['class'] != self.default_label]
+            # dataset = dataset[dataset['class'] != self.default_label]
 
         # The features are the ones not in the class label.
         features = [dataset.columns.get_loc(x) for x in dataset.columns if x not in class_labels]

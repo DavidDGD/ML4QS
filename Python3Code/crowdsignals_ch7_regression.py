@@ -51,9 +51,9 @@ print('Test set length is: ', len(test_X.index))
 
 # Select subsets of the features that we will consider:
 
-basic_features = ['acc_phone_x','acc_phone_y','acc_phone_z','acc_watch_x','acc_watch_y','acc_watch_z','gyr_phone_x','gyr_phone_y','gyr_phone_z','gyr_watch_x','gyr_watch_y','gyr_watch_z',
+basic_features = ['acc_phone_x','acc_phone_y','acc_phone_z','gyr_phone_x','gyr_phone_y','gyr_phone_z',
                   'labelOnTable','labelSitting','labelWashingHands','labelWalking','labelStanding','labelDriving','labelEating','labelRunning',
-                  'light_phone_lux','mag_phone_x','mag_phone_y','mag_phone_z','mag_watch_x','mag_watch_y','mag_watch_z','press_phone_pressure']
+                  'light_phone_lux','mag_phone_x','mag_phone_y','mag_phone_z']
 pca_features = ['pca_1','pca_2','pca_3','pca_4','pca_5','pca_6','pca_7']
 time_features = [name for name in dataset.columns if ('temp_' in name and not 'hr_watch' in name)]
 freq_features = [name for name in dataset.columns if (('_freq' in name) or ('_pse' in name))]
@@ -76,8 +76,7 @@ util.print_pearson_correlations(correlations)
 # We select the 10 features with the highest correlation.
 
 selected_features = ['temp_pattern_labelOnTable','labelOnTable','temp_pattern_labelOnTable(b)labelOnTable','pca_2_temp_mean_ws_120',
-                     'pca_1_temp_mean_ws_120','acc_watch_y_temp_mean_ws_120','pca_2','acc_phone_z_temp_mean_ws_120',
-                     'gyr_watch_y_pse','gyr_watch_x_pse']
+                     'pca_1_temp_mean_ws_120','pca_2','acc_phone_z_temp_mean_ws_120']
 
 possible_feature_sets = [basic_features, features_after_chapter_3, features_after_chapter_4, features_after_chapter_5, selected_features]
 feature_names = ['initial set', 'Chapter 3', 'Chapter 4', 'Chapter 5', 'Selected features']
